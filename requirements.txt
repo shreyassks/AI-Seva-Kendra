@@ -1,0 +1,6 @@
+unstructured
+langchain
+openai
+pdf2image
+chromadb
+tiktoken

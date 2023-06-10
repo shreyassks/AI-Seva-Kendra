@@ -8,7 +8,8 @@ from langchain.memory import ConversationSummaryBufferMemory
 from langchain.document_loaders import DirectoryLoader
 from langchain.chat_models import ChatOpenAI
 
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = ""
+# openai.api_key = os.getenv("OPENAI_API_KEY")
 llm = ChatOpenAI(temperature=0, model_name="gpt-4")
 
 # Data Ingestion
@@ -16,7 +17,7 @@ pdf_loader = DirectoryLoader('/Users/shreyas.sk/Downloads/', glob="**/*.pdf")
 # excel_loader = DirectoryLoader('./Reports/', glob="**/*.txt")
 # word_loader = DirectoryLoader('./Reports/', glob="**/*.docx")
 
-loaders = [pdf_loader] #, excel_loader, word_loader]
+loaders = [pdf_loader]  # , excel_loader, word_loader]
 documents = []
 for loader in loaders:
     documents.extend(loader.load())
@@ -40,7 +41,7 @@ retriever = vectorstore.as_retriever(
 
 # Initialise Langchain - Conversation Retrieval Chain
 qa = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, return_source_documents=True,
-                                            memory=memory, chain_type="stuff", get_chat_history=lambda h : h)
+                                           memory=memory, chain_type="stuff", get_chat_history=lambda h: h)
 
 # Front end web app
 with gr.Blocks() as demo:
@@ -48,15 +49,16 @@ with gr.Blocks() as demo:
     msg = gr.Textbox()
     clear = gr.Button("Clear")
     chat_history = []
-    
+
+
     def user(user_message, history):
         # Get response from QA chain
         response = qa({"question": user_message, "chat_history": history})
         # Append user message and response to chat history
         history.append((user_message, response["answer"]))
-        # print(type(history[0]))
         return gr.update(value=""), history
-    
+
+
     msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False)
     clear.click(lambda: None, None, chatbot, queue=False)
 
