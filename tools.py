@@ -5,6 +5,14 @@ from langchain.agents.tools import Tool
 from langchain.utilities import PythonREPL
 from pydantic import BaseModel, Field
 from langchain import LLMMathChain
+from langchain.utilities import GoogleSerperAPIWrapper
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+SERPAPI_KEY = os.getenv('SERPAPI_KEY')
+os.environ["SERPER_API_KEY"] = SERPAPI_KEY
+search = GoogleSerperAPIWrapper()
 
 
 # Defining schema for llm math chain as an example
@@ -13,7 +21,7 @@ class CalculatorInput(BaseModel):
 
 class Tools():
 
-    def _init_(self,llm) :
+    def __init__(self,llm) :
         self.llm = llm
 
         self.tools = [
@@ -33,6 +41,11 @@ class Tools():
                 description="A calculator. Use this to do math. Input should be a math question. For example, `What is 2+2?`",
                 args_schema=CalculatorInput
             ),
+            Tool(
+                name="Search",
+                func=search.run,
+                description="Useful for when you need to answer questions about current events. Does internet search.You should ask targeted questions."
+                )
         ]
 
     def aws_executor(self, input):
