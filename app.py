@@ -13,8 +13,8 @@ load_dotenv()
 OPENAI_KEY = os.getenv('OPENAI_KEY')
 SERPAPI_KEY = os.getenv('SERPAPI_KEY')
 os.environ["OPENAI_API_KEY"] = OPENAI_KEY
-os.environ["SERPER_API_KEY"] = SERPAPI_KEY
-
+#os.environ["SERPER_API_KEY"] = SERPAPI_KEY
+os.environ["SERPAPI_API_KEY"] = SERPAPI_KEY
 
 llm = OpenAI(openai_api_key=OPENAI_KEY,temperature=0.9)
 
@@ -33,6 +33,6 @@ if button_clicked:
     prompt=input_text
 
     with st.spinner('Agents at Work...'):
-        st.image('static/agent.png')
+        #st.image('static/agent.png')
         #st.image('static/talk.gif')
         st.write(action_agent.run(prompt))

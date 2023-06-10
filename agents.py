@@ -52,7 +52,7 @@ class MyCustomHandlerOne(BaseCallbackHandler):
         st.write("*Initating new Agent*")
         time.sleep(1)
         st.write("*Agent Initiated*")
-        st.image('static/agent.png')
+        #st.image('static/agent.png')
         time.sleep(1)
         st.write("Goal is Assinged to Agent")
         st.write(f"{action.log}")

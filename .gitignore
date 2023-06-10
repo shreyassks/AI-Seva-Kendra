@@ -1,1 +1,6 @@
 .env
+.idea
+test_maps_async.py
+test_maps.py
+.chroma
+__pycache__
