@@ -34,8 +34,7 @@ vectorstore = Chroma.from_documents(documents, embeddings)
 memory = ConversationSummaryMemory(
     llm=llm,
     output_key='answer',
-    memory_key='chat_history',
-    return_messages=True)
+    memory_key='chat_history')
 
 retriever = vectorstore.as_retriever(
     search_type="similarity",
