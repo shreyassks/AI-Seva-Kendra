@@ -1,15 +1,16 @@
 import os
+import openai
 import gradio as gr
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationSummaryBufferMemory
+from langchain.memory import ConversationSummaryMemory
 from langchain.document_loaders import DirectoryLoader
 from langchain.chat_models import ChatOpenAI
 
-os.environ["OPENAI_API_KEY"] = ""
-# openai.api_key = os.getenv("OPENAI_API_KEY")
+# os.environ["OPENAI_API_KEY"] = ""
+openai.api_key = os.getenv("OPENAI_API_KEY")
 llm = ChatOpenAI(temperature=0, model_name="gpt-4")
 
 # Data Ingestion
@@ -23,13 +24,14 @@ for loader in loaders:
     documents.extend(loader.load())
 
 # Chunk and Embeddings
-text_splitter = CharacterTextSplitter(chunk_size=2100, chunk_overlap=0)
+text_splitter = CharacterTextSplitter(chunk_size=2500, chunk_overlap=50)
 documents = text_splitter.split_documents(documents)
+
 
 embeddings = OpenAIEmbeddings()
 vectorstore = Chroma.from_documents(documents, embeddings)
 
-memory = ConversationSummaryBufferMemory(
+memory = ConversationSummaryMemory(
     llm=llm,
     output_key='answer',
     memory_key='chat_history',
