@@ -12,14 +12,10 @@ from fastapi import (
 from fastapi.middleware.cors import CORSMiddleware
 import logging
 
-# from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
 import uuid
 from dotenv import load_dotenv
 from tools import Tools
 import os
-from datetime import datetime
-from bson import ObjectId
 from fastapi.responses import StreamingResponse
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
