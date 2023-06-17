@@ -1,0 +1,266 @@
+.conversation-content {
+  padding: 1em;
+}
+
+.conversation-content h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: lighter;
+}
+
+.conversation-flex {
+  padding: 0em 5em;
+  margin-top: 1em;
+}
+
+.conversation-container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.audio-visualizers {
+  position: absolute;
+  top: 1em;
+  left: 0;
+  z-index: 1;
+}
+
+.audio-visualizers .person-div {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin: 1em 2em;
+  padding: 0.5em 1em;
+  background-color: #97d7cc;
+  border-radius: 3em;
+  width: 7em;
+  height: 3em;
+}
+
+.audio-visualizers .person-div .icon-name {
+  color: white;
+  background-color: #bbede5;
+  font-size: 1.3em;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-name img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.audio-visualizers .person-div .visualizer {
+  margin: 1em 0em;
+  margin-left: 1.5em;
+
+}
+
+.hidden {
+  visibility: hidden;
+  width: 0em;
+  height: 0em;
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+@keyframes bounce {
+    10% {
+      transform: scaleY(0.3); /* start by scaling to 30% */
+    }
+  
+    30% {
+      transform: scaleY(1); /* scale up to 100% */
+    }
+  
+    60% {
+      transform: scaleY(0.5); /* scale down to 50% */
+    }
+  
+    80% {
+      transform: scaleY(0.75); /* scale up to 75% */
+    }
+  
+    100% {
+      transform: scaleY(0.6); /* scale down to 60% */
+    }
+  }
+  
+
+.icon span {
+  width: 0.3em;
+  height: 100%;
+  background-color: rgb(254, 254, 254);
+  border-radius: 3px;
+  transform-origin: bottom;
+  animation: bounce 2.2s ease infinite alternate;
+  content: "";
+}
+
+.icon span {
+    &:nth-of-type(2) {
+      animation-delay: -2.2s; /* Start at the end of animation */
+    }
+  
+    &:nth-of-type(3) {
+      animation-delay: -3.7s; /* Start mid-way of return of animation */
+    }
+  }
+
+
+.chatbox {
+  background-color: rgba(233, 233, 233, 0.9);
+  height: 70vh;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.conversation-container .loading {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.784);
+  color: whitesmoke;
+  font-size: 1.5em;
+  width: 100%;
+  padding: 0.3em;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 2px;
+  z-index: 2;
+}
+
+.spinner {
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color:whitesmoke;
+  height: 100%;
+  width: 4px;
+  margin: 0 2px;
+  border-radius: 2px;
+  display: inline-block;
+  -webkit-animation: stretchDelay 1.2s infinite ease-in-out;
+  animation: stretchDelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes stretchDelay {
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    -webkit-transform: scaleY(1);
+  }
+}
+
+@keyframes stretchDelay {
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1);
+  }
+}
+
+
+.actually-chatbox {
+  margin-top: 16em;
+}
+
+.actually-chatbox .ai-chat{
+  text-align: right;
+}
+
+.actually-chatbox .you-chat{
+  text-align: left;
+}
+
+.actually-chatbox .ai-chat .conversation-box {
+  background-color: white;
+  display: inline-block;
+  padding: 1.7em;
+  margin: 1em 2em;
+  border-radius: 20px;
+  font-size: 1em;
+  color: black;
+  max-width: 60%;
+  text-align: left;
+}
+
+
+.actually-chatbox .you-chat .conversation-box {
+  background-color: rgb(114, 166, 255);
+  display: inline-block;
+  padding: 1.7em;
+  margin: 1em 2em;
+  border-radius: 20px;
+  font-size: 1em;
+  color: black;
+  max-width: 40%;
+  text-align: left;
+}
+
+.end-conversation-container {
+  display:  flex;
+  justify-content: center;
+}
+
+.end-conversation {
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-size: 1.1em;
+  color: rgba(0, 0, 0, 0.518);
+  font-weight: bold;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  width: fit-content;
+}
+

@@ -1,6 +1,11 @@
+
+## FRONTEND
+**/node_modules
+**/.pnp/
+**/.pnp.js/
+
+#BACKEND
+**/__pycache__/
+.DS_Store
+**/env_dev
 .env
-.idea
-test_maps_async.py
-test_maps.py
-.chroma
-__pycache__
