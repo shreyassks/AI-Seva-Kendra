@@ -10,5 +10,5 @@ __pycache__
 env_dev
 .env
 data
-/audio_files/*
+audio_files
 .chroma
