@@ -1,50 +1,48 @@
-import os
-import openai
 import gradio as gr
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationSummaryMemory
-from langchain.document_loaders import DirectoryLoader
+from langchain.memory import ConversationSummaryBufferMemory
+from langchain.document_loaders import PyPDFDirectoryLoader
 from langchain.chat_models import ChatOpenAI
+from dotenv import load_dotenv
 
-# os.environ["OPENAI_API_KEY"] = ""
-openai.api_key = os.getenv("OPENAI_API_KEY")
-llm = ChatOpenAI(temperature=0, model_name="gpt-4")
+load_dotenv()
+
+llm = ChatOpenAI(temperature=0.1, model_name="gpt-4")
 
 # Data Ingestion
-pdf_loader = DirectoryLoader('/Users/shreyas.sk/Downloads/', glob="**/*.pdf")
-# excel_loader = DirectoryLoader('./Reports/', glob="**/*.txt")
-# word_loader = DirectoryLoader('./Reports/', glob="**/*.docx")
+pdf_loader = PyPDFDirectoryLoader('static/')
 
-loaders = [pdf_loader]  # , excel_loader, word_loader]
-documents = []
-for loader in loaders:
-    documents.extend(loader.load())
+documents = pdf_loader.load()
 
 # Chunk and Embeddings
-text_splitter = CharacterTextSplitter(chunk_size=2500, chunk_overlap=50)
+text_splitter = CharacterTextSplitter(chunk_size=1500, chunk_overlap=150)
 documents = text_splitter.split_documents(documents)
 
-
 embeddings = OpenAIEmbeddings()
-vectorstore = Chroma.from_documents(documents, embeddings)
 
-memory = ConversationSummaryMemory(
+vectorstore = Chroma.from_documents(documents, embeddings, persist_directory="db")
+vectorstore.persist()
+vectordb = Chroma(persist_directory="db", embedding_function=embeddings)
+
+memory = ConversationSummaryBufferMemory(
     llm=llm,
+    max_token_limit=850,
     output_key='answer',
-    memory_key='chat_history')
+    memory_key='chat_history',
+    return_messages=True)
 
-retriever = vectorstore.as_retriever(
+retriever = vectordb.as_retriever(
     search_type="similarity",
-    search_kwargs={"k": 4, "include_metadata": True})
+    search_kwargs={"k": 3})
 
 # Initialise Langchain - Conversation Retrieval Chain
-qa = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, return_source_documents=True,
-                                           memory=memory, chain_type="stuff", get_chat_history=lambda h: h)
+qa = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, memory=memory,
+                                           get_chat_history=lambda h: h,
+                                           chain_type="stuff")
 
-# Front end web app
 with gr.Blocks() as demo:
     chatbot = gr.Chatbot()
     msg = gr.Textbox()
@@ -57,6 +55,7 @@ with gr.Blocks() as demo:
         response = qa({"question": user_message, "chat_history": history})
         # Append user message and response to chat history
         history.append((user_message, response["answer"]))
+        # print(type(history[0]))
         return gr.update(value=""), history
 
 

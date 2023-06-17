@@ -1,3 +1,5 @@
 .env
 .idea
 .chroma
+venv
+.DS_Store

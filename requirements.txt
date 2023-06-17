@@ -4,3 +4,6 @@ openai
 pdf2image
 chromadb
 tiktoken
+python-dotenv
+pypdf
+streamlit
