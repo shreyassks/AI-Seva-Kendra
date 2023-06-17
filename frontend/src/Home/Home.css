@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap');
+
+.home-page {
+  height: 100vh;
+  display: flex;
+}
+
+.banner {
+  flex: 3;
+  background-image: url("../../public/home-bg.jpeg");
+  background-color: black;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+
+  overflow: hidden;
+  position: relative;
+
+}
+
+.banner-overlay {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(240, 240, 240, 0.872);
+  }
+
+.banner-content {
+    z-index: 1;
+}
+
+.banner-content .logo {
+  width: 30rem;
+}
+  
+
+.banner-p {
+    font-size: 2em;
+    font-family: 'Poppins', sans-serif;
+    color: rgba(0, 0, 0, 0.961);
+}
+
+.form {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color:  rgba(245, 245, 245, 0.961);
+}
+
+
+.form-heading {
+    font-size: 3em;
+    font-family: 'Kanit', sans-serif;
+}
+
+.form-content {
+    width: 50%;
+}
+
+.form-label {
+    font-size: 1em;
+    font-family: 'Kanit', sans-serif;
+    font-weight: lighter;
+    text-align: left;
+    width: 100%;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.5em;
+    font-size: 1em;
+    font-family: 'Kanit', sans-serif;
+    margin-bottom: 1em;
+    box-sizing: border-box;
+    border: none;
+}
+
+.form-button {
+    width: 100%;
+    padding: 0.5em;
+    font-size: 1.5em;
+    font-family: 'Kanit', sans-serif;
+    margin: 2em 0em;
+    color: white;
+    border: none;
+    background-color: #97d7cc ;
+    cursor: pointer;
+    letter-spacing: 5px;
+}
+
+
