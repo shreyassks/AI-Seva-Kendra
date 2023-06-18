@@ -1,11 +1,14 @@
 
 ## FRONTEND
-**/node_modules
-**/.pnp/
-**/.pnp.js/
+node_modules
+.pnp/
+.pnp.js/
 
 #BACKEND
-**/__pycache__/
+__pycache__
 .DS_Store
-**/env_dev
+env_dev
 .env
+data
+audio_files
+.chroma
